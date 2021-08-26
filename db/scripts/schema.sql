@@ -1,6 +1,6 @@
-create table if not exists items (
-    id serial primary key,
-    description text,
-    created timestamp,
-    done boolean
+CREATE TABLE IF NOT EXISTS items (
+    ID SERIAL PRIMARY KEY,
+    DESCRIPTION TEXT,
+    CREATED TIMASTAMP,
+    DONE BOOLEAN
 );

@@ -1,0 +1,8 @@
+.container {
+    max-width: 800px;
+}
+
+.navbar {
+    max-width: 800px;
+    align-self: center;
+}
