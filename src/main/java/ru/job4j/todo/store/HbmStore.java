@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.job4j.todo.model.Item;
@@ -54,6 +55,23 @@ public class HbmStore implements Store, AutoCloseable {
     }
 
     /**
+     * method update item status
+     * @param id - item id for update
+     * @param done - new item ststus
+     */
+    @Override
+    public void update(int id, boolean done) {
+        Session session = this.sf.openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("update Item set done = :done where id = :id");
+        query.setParameter("done", done);
+        query.setParameter("id", id);
+        query.executeUpdate();
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    /**
      * method return all items from db
      * @return - all items from db
      */
@@ -97,19 +115,6 @@ public class HbmStore implements Store, AutoCloseable {
         session.getTransaction().commit();
         session.close();
         return result;
-    }
-
-    /**
-     * method update item into db
-     * @param item - item with new parameters
-     */
-    @Override
-    public void update(Item item) {
-        Session session = sf.openSession();
-        session.beginTransaction();
-        session.update(item);
-        session.getTransaction().commit();
-        session.close();
     }
 
     @Override

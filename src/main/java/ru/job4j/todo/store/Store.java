@@ -8,11 +8,12 @@ public interface Store {
 
     Item add(Item item);
 
+    void update(int id, boolean done);
+
     Collection<Item> findAllItems();
 
     Collection<Item> findNotDoneItems();
 
     Item findItemById(int id);
 
-    void update(Item item);
 }

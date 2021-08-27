@@ -19,9 +19,7 @@ public class ChangeItemStatusServlet extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("id"));
         boolean done = Boolean.parseBoolean(req.getParameter("done"));
 
-        Item item = HbmStore.getInstance().findItemById(id);
-        item.setDone(done);
-        HbmStore.getInstance().update(item);
+        HbmStore.getInstance().update(id, done);
 
         resp.getWriter().write("Стутус заявки изменен");
     }

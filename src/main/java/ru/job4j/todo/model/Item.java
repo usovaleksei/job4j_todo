@@ -10,9 +10,9 @@ public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    String description;
-    Timestamp created;
-    boolean done;
+    private String description;
+    private Timestamp created;
+    private boolean done;
 
     public Item() {
     }

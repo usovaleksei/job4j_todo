@@ -66,7 +66,8 @@ function loadNotDoItems() {
                 let date = new Date(data[i].created).toLocaleString();
                 tr.innerHTML = `<td>${data[i].description}</td>
                                <td>${date}</td>
-                               <td><input class="form-check-input" type="checkbox" value="" id=${data[i].id} onchange="changeTaskStatus(this.id, this.checked)"> В работе </td>`
+                               <td><input class="form-check-input" type="checkbox" value="" id=${data[i].id}
+                                onchange="changeTaskStatus(this.id, this.checked)"> В работе </td>`
                 tbody.appendChild(tr);
             }
         }
@@ -90,11 +91,13 @@ function loadAllItems() {
                 if (dataDone) {
                     tr.innerHTML = `<td>${data[i].description}</td>
                                <td>${date}</td>
-                               <td><input class="form-check-input" type="checkbox" value="" id=id=${data[i].id} checked="checked" onchange="changeTaskStatus(this.id, this.checked)"> Выполнена </td>`
+                               <td><input class="form-check-input" type="checkbox" value="" id=id=${data[i].id}
+                                checked="checked" onchange="changeTaskStatus(this.id, this.checked)"> Выполнена </td>`
                 } else {
                     tr.innerHTML = `<td>${data[i].description}</td>
                                <td>${date}</td>
-                               <td><input class="form-check-input" type="checkbox" value="" id=${data[i].id} onchange="changeTaskStatus(this.id, this.checked)"> В работе </td>`
+                               <td><input class="form-check-input" type="checkbox" value="" id=${data[i].id}
+                                onchange="changeTaskStatus(this.id, this.checked)"> В работе </td>`
                 }
                 tbody.appendChild(tr);
             }
