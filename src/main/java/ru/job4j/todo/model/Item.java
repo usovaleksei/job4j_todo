@@ -14,6 +14,10 @@ public class Item {
     private Timestamp created;
     private boolean done;
 
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private User user;
+
     public Item() {
     }
 
