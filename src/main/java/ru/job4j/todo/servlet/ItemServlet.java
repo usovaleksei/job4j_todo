@@ -2,6 +2,7 @@ package ru.job4j.todo.servlet;
 
 import org.json.JSONArray;
 import ru.job4j.todo.model.Item;
+import ru.job4j.todo.model.User;
 import ru.job4j.todo.store.HbmStore;
 
 import javax.servlet.ServletException;
@@ -16,10 +17,13 @@ import java.util.Collection;
 public class ItemServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("text/json");
         resp.setCharacterEncoding("UTF-8");
-        Collection<Item> items = HbmStore.getInstance().findAllItems();
+
+        User user = (User) req.getSession().getAttribute("user");
+
+        Collection<Item> items = HbmStore.getInstance().getUserItems(user);
         resp.getWriter().println(new JSONArray(items));
     }
 
@@ -27,8 +31,16 @@ public class ItemServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("text/plain");
         resp.setCharacterEncoding("UTF-8");
+
         String description = req.getParameter("description");
-        HbmStore.getInstance().add(new Item(description, Timestamp.valueOf(LocalDateTime.now()), false));
+
+        User user = (User) req.getSession().getAttribute("user");
+
+        Item item = new Item(description, Timestamp.valueOf(LocalDateTime.now()), false);
+        item.setUser(user);
+
+        HbmStore.getInstance().add(item);
+
         resp.getWriter().write("Задача успешно сохранена");
     }
 }

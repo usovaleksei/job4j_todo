@@ -1,6 +1,7 @@
 package ru.job4j.todo.model;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -12,16 +13,23 @@ public class User {
 
     private String name;
     private String phone;
+    private String password;
 
     public User() {
     }
 
-    public int getId() {
+    public User(String name, String phone, String password) {
+        this.name = name;
+        this.phone = phone;
+        this.password = password;
+    }
+
+    public int getUserId() {
         return userId;
     }
 
-    public void setId(int id) {
-        this.userId = id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getName() {
@@ -40,13 +48,12 @@ public class User {
         this.phone = phone;
     }
 
-    @Override
-    public String toString() {
-        return "User{"
-                + "userId=" + userId
-                + ", name='" + name + '\''
-                + ", phone='" + phone + '\''
-                + '}';
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
@@ -60,11 +67,22 @@ public class User {
         User user = (User) o;
         return userId == user.userId
                 && Objects.equals(name, user.name)
-                && Objects.equals(phone, user.phone);
+                && Objects.equals(phone, user.phone)
+                && Objects.equals(password, user.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, name, phone);
+        return Objects.hash(userId, name, phone, password);
+    }
+
+    @Override
+    public String toString() {
+        return "User{"
+                + "userId=" + userId
+                + ", name='" + name + '\''
+                + ", phone='" + phone + '\''
+                + ", password='" + password + '\''
+                + '}';
     }
 }

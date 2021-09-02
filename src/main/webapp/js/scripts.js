@@ -1,3 +1,5 @@
+let user;
+
 function showAllItems() {
     if (document.querySelector('#allItems').checked) {
         loadAllItems();
@@ -64,7 +66,11 @@ function loadNotDoItems() {
             for (let i = 0; i < data.length; i++) {
                 let tr = document.createElement('tr');
                 let date = new Date(data[i].created).toLocaleString();
+                user = data[i].user;
+                let name = user['name'];
+                console.log(user);
                 tr.innerHTML = `<td>${data[i].description}</td>
+                               <td>${name}</td> 
                                <td>${date}</td>
                                <td><input class="form-check-input" type="checkbox" value="" id=${data[i].id}
                                 onchange="changeTaskStatus(this.id, this.checked)"> В работе </td>`
@@ -88,13 +94,17 @@ function loadAllItems() {
                 let tr = document.createElement('tr');
                 let dataDone = Boolean(data[i].done);
                 let date = new Date(data[i].created).toLocaleString();
+                user = data[i].user;
+                let name = user['name'];
                 if (dataDone) {
                     tr.innerHTML = `<td>${data[i].description}</td>
+                               <td>${name}</td> 
                                <td>${date}</td>
                                <td><input class="form-check-input" type="checkbox" value="" id=id=${data[i].id}
                                 checked="checked" onchange="changeTaskStatus(this.id, this.checked)"> Выполнена </td>`
                 } else {
                     tr.innerHTML = `<td>${data[i].description}</td>
+                               <td>${name}</td>
                                <td>${date}</td>
                                <td><input class="form-check-input" type="checkbox" value="" id=${data[i].id}
                                 onchange="changeTaskStatus(this.id, this.checked)"> В работе </td>`

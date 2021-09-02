@@ -10,8 +10,10 @@ import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.job4j.todo.model.Item;
+import ru.job4j.todo.model.User;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.function.Function;
 
 /**
@@ -100,7 +102,41 @@ public class HbmStore implements Store, AutoCloseable {
     @SuppressWarnings("unchecked")
     public Collection<Item> findNotDoneItems() {
         return this.tx(
-                session -> session.createQuery("from ru.job4j.todo.model.Item where done = false").list()
+                session ->
+                        session.createQuery(
+                                "from ru.job4j.todo.model.Item where done = false")
+                        .list()
+        );
+    }
+
+    /**
+     * method get all items by authorization user
+     * @param user authorization user
+     * @return user items list
+     */
+    @Override
+    public List<Item> getUserItems(User user) {
+        return this.tx(
+                session ->
+                session.createQuery("from ru.job4j.todo.model.Item where user = :user")
+                        .setParameter("user", user)
+                        .list()
+        );
+    }
+
+    /**
+     * method get not done items by authorization user
+     * @param user authorization user
+     * @return user not done items list
+     */
+    @Override
+    public List<Item> getUserNotDoneItems(User user) {
+        return this.tx(
+                session ->
+                session.createQuery(
+                        "from ru.job4j.todo.model.Item where user = :user and done = false")
+                        .setParameter("user", user)
+                        .list()
         );
     }
 
@@ -118,9 +154,45 @@ public class HbmStore implements Store, AutoCloseable {
     }
 
     /**
+     * method save new user to db
+     *
+     * @param user - new user
+     * @return - user, which saved
+     */
+    @Override
+    public User save(User user) {
+        return this.tx(
+                session -> {
+                    session.save(user);
+                    return user;
+                }
+        );
+    }
+
+    /**
+     * method find user from db dy phone
+     *
+     * @param phone - user phone
+     * @return - found user
+     */
+    @Override
+    public User findUserByPhone(String phone) {
+        return this.tx(
+                session -> {
+                    var query = session.createQuery(
+                            "from ru.job4j.todo.model.User where phone = :phone"
+                    );
+                    query.setParameter("phone", phone);
+                    return (User) query.uniqueResult();
+                }
+        );
+    }
+
+    /**
      * method implements the decorator pattern
+     *
      * @param command function to execute
-     * @param <T> data type
+     * @param <T>     data type
      * @return function result
      */
     private <T> T tx(final Function<Session, T> command) {

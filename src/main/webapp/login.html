@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ToDo List</title>
+    <title>Страница авторизации пользователя</title>
 
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="css/style.css">
     <script type="text/javascript" src="js/scripts.js"></script>
 </head>
-<body onload="loadNotDoItems();">
+<body>
 <div class="container">
     <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
         <div class="container-md">
@@ -30,47 +30,24 @@
                 <div class="navbar-nav">
                     <a class="nav-link active" aria-current="page" href="/todo/login.html">Авторизация</a>
                     <a class="nav-link" href="/todo/reg.html">Регистрация</a>
-                    <a class="nav-link" href="/todo/logout.do">Выйти</a>
                 </div>
             </div>
         </div>
     </nav>
 </div>
-<div class="container d-flex d-flex align-items-center" style="height: 80px;">
-    <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="allItems"
-               onchange="showAllItems()">
-        <label class="form-check-label" for="allItems" style="color: red;">
-            Показывать завершенные задачи
-        </label>
-    </div>
-</div>
+<div class="container d-flex d-flex align-items-center" style="height: 30px;"></div>
 <div class="container">
-    <h6><p>Список задач:</p></h6>
-    <table id="itemsTable" style="width: 800px;">
-        <thead>
-        <tr>
-            <th>Задача</th>
-            <th>Автор</th>
-            <th>Дата создания</th>
-            <th>Выполнение</th>
-        </tr>
-        </thead>
-    </table>
-</div>
-<div class="container" style="height: 50px;">
-    <div class="row"></div>
-</div>
-<div class="container">
-    <h6><p>Добавить новое задание:</p></h6>
-    <form id="itemForm">
+    <form action="/todo/auth.do" method="post">
         <div class="mb-3">
-            <input type="text" class="form-control" id="newItemName" aria-describedby="itemHelp">
-            <div id="itemHelp" class="form-text">Введите название новой задачи</div>
+            <label for="phone" class="form-label">Телефон</label>
+            <input type="text" class="form-control" id="phone" name="phone">
         </div>
-        <button type="button" class="btn btn-primary" onclick="btnClick();">Сохранить</button>
+        <div class="mb-3">
+            <label for="password" class="form-label">Пароль</label>
+            <input type="password" class="form-control" id="password" name="password">
+        </div>
+        <button type="submit" class="btn btn-primary">Войти</button>
     </form>
 </div>
-
 </body>
 </html>

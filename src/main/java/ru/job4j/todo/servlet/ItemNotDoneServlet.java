@@ -2,6 +2,7 @@ package ru.job4j.todo.servlet;
 
 import org.json.JSONArray;
 import ru.job4j.todo.model.Item;
+import ru.job4j.todo.model.User;
 import ru.job4j.todo.store.HbmStore;
 import ru.job4j.todo.store.Store;
 
@@ -18,7 +19,10 @@ public class ItemNotDoneServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/json");
         resp.setCharacterEncoding("UTF-8");
-        Collection<Item> items = HbmStore.getInstance().findNotDoneItems();
+
+        User user = (User) req.getSession().getAttribute("user");
+
+        Collection<Item> items = HbmStore.getInstance().getUserNotDoneItems(user);
         resp.getWriter().println(new JSONArray(items));
     }
 }

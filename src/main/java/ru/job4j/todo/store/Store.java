@@ -1,8 +1,10 @@
 package ru.job4j.todo.store;
 
 import ru.job4j.todo.model.Item;
+import ru.job4j.todo.model.User;
 
 import java.util.Collection;
+import java.util.List;
 
 public interface Store {
 
@@ -16,4 +18,11 @@ public interface Store {
 
     Item findItemById(int id);
 
+    User save(User user);
+
+    User findUserByPhone(String phone);
+
+    List<Item> getUserItems(User user);
+
+    List<Item> getUserNotDoneItems(User user);
 }
