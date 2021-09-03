@@ -19,7 +19,6 @@ public class AuthServlet extends HttpServlet {
         String password = req.getParameter("password");
 
         if (user != null
-                && user.getPhone().equals(phone)
                 && user.getPassword().equals(password)) {
             HttpSession sc = req.getSession();
             sc.setAttribute("user", user);
